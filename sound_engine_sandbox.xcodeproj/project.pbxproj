@@ -1,0 +1,337 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		65438A7615FAD1AD00BC67B4 /* FMODSoundEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 65438A7515FAD1AD00BC67B4 /* FMODSoundEngine.mm */; };
+		65438A7B15FAD70900BC67B4 /* FMODSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 65438A7A15FAD70900BC67B4 /* FMODSound.mm */; };
+		65438A7E15FAD72100BC67B4 /* FMODTone.mm in Sources */ = {isa = PBXBuildFile; fileRef = 65438A7D15FAD72100BC67B4 /* FMODTone.mm */; };
+		6569915215F9728D00A4F67A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569915115F9728D00A4F67A /* UIKit.framework */; };
+		6569915415F9728D00A4F67A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569915315F9728D00A4F67A /* Foundation.framework */; };
+		6569915615F9728D00A4F67A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569915515F9728D00A4F67A /* CoreGraphics.framework */; };
+		6569915C15F9728D00A4F67A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6569915A15F9728D00A4F67A /* InfoPlist.strings */; };
+		6569915E15F9728D00A4F67A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6569915D15F9728D00A4F67A /* main.m */; };
+		6569916215F9728D00A4F67A /* RESOAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6569916115F9728D00A4F67A /* RESOAppDelegate.mm */; };
+		6569916D15F9737300A4F67A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569916C15F9737300A4F67A /* AVFoundation.framework */; };
+		6569917115F9791A00A4F67A /* RESOViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6569916F15F9791A00A4F67A /* RESOViewController.mm */; };
+		6569917215F9791A00A4F67A /* RESOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6569917015F9791A00A4F67A /* RESOViewController.xib */; };
+		6569917715F97E0700A4F67A /* swish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6569917615F97E0700A4F67A /* swish.wav */; };
+		6569917915F97ECB00A4F67A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569917815F97ECB00A4F67A /* CoreAudio.framework */; };
+		6569917B15F97EDA00A4F67A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569917A15F97EDA00A4F67A /* AudioToolbox.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		65438A7115FACE4200BC67B4 /* ISoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISoundEngine.h; sourceTree = "<group>"; };
+		65438A7315FAD0F000BC67B4 /* RESOTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESOTypes.h; sourceTree = "<group>"; };
+		65438A7415FAD1AD00BC67B4 /* FMODSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMODSoundEngine.h; sourceTree = "<group>"; };
+		65438A7515FAD1AD00BC67B4 /* FMODSoundEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FMODSoundEngine.mm; sourceTree = "<group>"; };
+		65438A7715FAD4BD00BC67B4 /* ISound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISound.h; sourceTree = "<group>"; };
+		65438A7815FAD4D200BC67B4 /* ITone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITone.h; sourceTree = "<group>"; };
+		65438A7915FAD70900BC67B4 /* FMODSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMODSound.h; sourceTree = "<group>"; };
+		65438A7A15FAD70900BC67B4 /* FMODSound.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FMODSound.mm; sourceTree = "<group>"; };
+		65438A7C15FAD72100BC67B4 /* FMODTone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMODTone.h; sourceTree = "<group>"; };
+		65438A7D15FAD72100BC67B4 /* FMODTone.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FMODTone.mm; sourceTree = "<group>"; };
+		6569914D15F9728D00A4F67A /* sound_engine_sandbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sound_engine_sandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6569915115F9728D00A4F67A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6569915315F9728D00A4F67A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6569915515F9728D00A4F67A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6569915915F9728D00A4F67A /* sound_engine_sandbox-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sound_engine_sandbox-Info.plist"; sourceTree = "<group>"; };
+		6569915B15F9728D00A4F67A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6569915D15F9728D00A4F67A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6569915F15F9728D00A4F67A /* sound_engine_sandbox-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sound_engine_sandbox-Prefix.pch"; sourceTree = "<group>"; };
+		6569916015F9728D00A4F67A /* RESOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESOAppDelegate.h; sourceTree = "<group>"; };
+		6569916115F9728D00A4F67A /* RESOAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RESOAppDelegate.mm; sourceTree = "<group>"; };
+		6569916C15F9737300A4F67A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6569916E15F9791A00A4F67A /* RESOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESOViewController.h; sourceTree = "<group>"; };
+		6569916F15F9791A00A4F67A /* RESOViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RESOViewController.mm; sourceTree = "<group>"; };
+		6569917015F9791A00A4F67A /* RESOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RESOViewController.xib; sourceTree = "<group>"; };
+		6569917615F97E0700A4F67A /* swish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = swish.wav; sourceTree = "<group>"; };
+		6569917815F97ECB00A4F67A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		6569917A15F97EDA00A4F67A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6569914A15F9728D00A4F67A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6569917B15F97EDA00A4F67A /* AudioToolbox.framework in Frameworks */,
+				6569917915F97ECB00A4F67A /* CoreAudio.framework in Frameworks */,
+				6569916D15F9737300A4F67A /* AVFoundation.framework in Frameworks */,
+				6569915215F9728D00A4F67A /* UIKit.framework in Frameworks */,
+				6569915415F9728D00A4F67A /* Foundation.framework in Frameworks */,
+				6569915615F9728D00A4F67A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6569914215F9728D00A4F67A = {
+			isa = PBXGroup;
+			children = (
+				6569917A15F97EDA00A4F67A /* AudioToolbox.framework */,
+				6569917815F97ECB00A4F67A /* CoreAudio.framework */,
+				6569917515F97DEE00A4F67A /* Resources */,
+				6569916C15F9737300A4F67A /* AVFoundation.framework */,
+				6569915715F9728D00A4F67A /* sound_engine_sandbox */,
+				6569915015F9728D00A4F67A /* Frameworks */,
+				6569914E15F9728D00A4F67A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6569914E15F9728D00A4F67A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6569914D15F9728D00A4F67A /* sound_engine_sandbox.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6569915015F9728D00A4F67A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6569915115F9728D00A4F67A /* UIKit.framework */,
+				6569915315F9728D00A4F67A /* Foundation.framework */,
+				6569915515F9728D00A4F67A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6569915715F9728D00A4F67A /* sound_engine_sandbox */ = {
+			isa = PBXGroup;
+			children = (
+				65438A7415FAD1AD00BC67B4 /* FMODSoundEngine.h */,
+				65438A7515FAD1AD00BC67B4 /* FMODSoundEngine.mm */,
+				65438A7115FACE4200BC67B4 /* ISoundEngine.h */,
+				6569916015F9728D00A4F67A /* RESOAppDelegate.h */,
+				6569916115F9728D00A4F67A /* RESOAppDelegate.mm */,
+				6569915815F9728D00A4F67A /* Supporting Files */,
+				6569916E15F9791A00A4F67A /* RESOViewController.h */,
+				6569916F15F9791A00A4F67A /* RESOViewController.mm */,
+				6569917015F9791A00A4F67A /* RESOViewController.xib */,
+				65438A7315FAD0F000BC67B4 /* RESOTypes.h */,
+				65438A7715FAD4BD00BC67B4 /* ISound.h */,
+				65438A7815FAD4D200BC67B4 /* ITone.h */,
+				65438A7915FAD70900BC67B4 /* FMODSound.h */,
+				65438A7A15FAD70900BC67B4 /* FMODSound.mm */,
+				65438A7C15FAD72100BC67B4 /* FMODTone.h */,
+				65438A7D15FAD72100BC67B4 /* FMODTone.mm */,
+			);
+			path = sound_engine_sandbox;
+			sourceTree = "<group>";
+		};
+		6569915815F9728D00A4F67A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6569915915F9728D00A4F67A /* sound_engine_sandbox-Info.plist */,
+				6569915A15F9728D00A4F67A /* InfoPlist.strings */,
+				6569915D15F9728D00A4F67A /* main.m */,
+				6569915F15F9728D00A4F67A /* sound_engine_sandbox-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6569917515F97DEE00A4F67A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6569917615F97E0700A4F67A /* swish.wav */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6569914C15F9728D00A4F67A /* sound_engine_sandbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6569916515F9728D00A4F67A /* Build configuration list for PBXNativeTarget "sound_engine_sandbox" */;
+			buildPhases = (
+				6569914915F9728D00A4F67A /* Sources */,
+				6569914A15F9728D00A4F67A /* Frameworks */,
+				6569914B15F9728D00A4F67A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sound_engine_sandbox;
+			productName = sound_engine_sandbox;
+			productReference = 6569914D15F9728D00A4F67A /* sound_engine_sandbox.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6569914415F9728D00A4F67A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RESO;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Monomyth Software";
+			};
+			buildConfigurationList = 6569914715F9728D00A4F67A /* Build configuration list for PBXProject "sound_engine_sandbox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6569914215F9728D00A4F67A;
+			productRefGroup = 6569914E15F9728D00A4F67A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6569914C15F9728D00A4F67A /* sound_engine_sandbox */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6569914B15F9728D00A4F67A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6569915C15F9728D00A4F67A /* InfoPlist.strings in Resources */,
+				6569917215F9791A00A4F67A /* RESOViewController.xib in Resources */,
+				6569917715F97E0700A4F67A /* swish.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6569914915F9728D00A4F67A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6569915E15F9728D00A4F67A /* main.m in Sources */,
+				6569916215F9728D00A4F67A /* RESOAppDelegate.mm in Sources */,
+				6569917115F9791A00A4F67A /* RESOViewController.mm in Sources */,
+				65438A7615FAD1AD00BC67B4 /* FMODSoundEngine.mm in Sources */,
+				65438A7B15FAD70900BC67B4 /* FMODSound.mm in Sources */,
+				65438A7E15FAD72100BC67B4 /* FMODTone.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6569915A15F9728D00A4F67A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6569915B15F9728D00A4F67A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6569916315F9728D00A4F67A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6569916415F9728D00A4F67A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6569916615F9728D00A4F67A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "sound_engine_sandbox/sound_engine_sandbox-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../Library/FMOD/api/inc/**";
+				INFOPLIST_FILE = "sound_engine_sandbox/sound_engine_sandbox-Info.plist";
+				LIBRARY_SEARCH_PATHS = "../../Library/FMOD/api/lib/**";
+				"OTHER_LDFLAGS[arch=armv7]" = "-lfmodex_iphoneos";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "-lfmodex_iphonesimulator";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6569916715F9728D00A4F67A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "sound_engine_sandbox/sound_engine_sandbox-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../Library/FMOD/api/inc/**";
+				INFOPLIST_FILE = "sound_engine_sandbox/sound_engine_sandbox-Info.plist";
+				LIBRARY_SEARCH_PATHS = "../../Library/FMOD/api/lib/**";
+				"OTHER_LDFLAGS[arch=*]" = "-lfmodex_iphoneos";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6569914715F9728D00A4F67A /* Build configuration list for PBXProject "sound_engine_sandbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6569916315F9728D00A4F67A /* Debug */,
+				6569916415F9728D00A4F67A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6569916515F9728D00A4F67A /* Build configuration list for PBXNativeTarget "sound_engine_sandbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6569916615F9728D00A4F67A /* Debug */,
+				6569916715F9728D00A4F67A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6569914415F9728D00A4F67A /* Project object */;
+}
