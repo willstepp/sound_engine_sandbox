@@ -25,6 +25,7 @@
 -(void)ensureSoundReleased;
 -(FMOD::DSP*)getDSPWithEffectType:(EffectType)et;
 -(FMOD_DSP_TYPE)getDSPTypeWithEffectType:(EffectType)et;
+-(void)setDSPWithEffectType:(EffectType)et withEffect:(FMOD::DSP*)effect;
 -(int)getDSPParameterWithEffectParameter:(EffectParameter)ep;
 @end
 
@@ -34,7 +35,7 @@
 {
     //enforce client to use initWithSoundEngine
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                        reason:@"-init is not a valid initializer for the class FMODSound. Use -initWithSoundEngine"
+                        reason:@"-init is not a valid initializer for the class FMODSound. Use -initWithSoundEngine instead."
                         userInfo:nil];
     return nil;
 }
@@ -43,6 +44,7 @@
 {
     [self ensureSoundReleased];
     soundEngine = nil;
+    reverb = pitch = distortion = echo = flange = NULL;
 }
 
 -(void)ensureSoundReleased
@@ -50,6 +52,7 @@
     if (sound)
     {
         channel->stop();
+        channel = NULL;
         sound->release();
         sound = NULL;
     }
@@ -71,6 +74,30 @@
             return flange;
         default:
             return NULL;
+    }
+}
+
+-(void)setDSPWithEffectType:(EffectType)et withEffect:(FMOD::DSP*)effect
+{
+    switch (et)
+    {
+        case EffectType::Reverb:
+            reverb = effect;
+            break;
+        case EffectType::Pitch:
+            pitch = effect;
+            break;
+        case EffectType::Distortion:
+            distortion = effect;
+            break;
+        case EffectType::Echo:
+            echo = effect;
+            break;
+        case EffectType::Flange:
+            flange = effect;
+            break;
+        default:
+            break;
     }
 }
 
@@ -171,7 +198,7 @@
     if (self = [super init])
     {
         soundEngine = ise;
-        reverb = pitch = distortion = echo = flange = 0;
+        reverb = pitch = distortion = echo = flange = NULL;
     }
     return self;
 }
@@ -182,8 +209,7 @@
     
     FMOD_RESULT result = FMOD_OK;
     char buffer[200] = {0};
-    
-    //create stream
+
     [url getCString:buffer maxLength:200 encoding:NSASCIIStringEncoding];
     result = soundEngine.system->createStream(buffer, FMOD_SOFTWARE | FMOD_LOOP_NORMAL, NULL, &sound);
 }
@@ -195,38 +221,46 @@
 
 -(void)play
 {
-    soundEngine.system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+    if (sound)
+    {
+        channel = NULL;
+        soundEngine.system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+    }
 }
 
 -(void)stop
 {
-    channel->stop();
+    if (channel) channel->stop();
 }
 
 -(void)setPaused:(bool)state
 {
-    channel->setPaused(state);
+    if (channel) channel->setPaused(state);
 }
 
 -(void)setVolume:(float)value
 {
-    float normalized_volume = value / 100.0f;
-    channel->setVolume(normalized_volume);
+    if (channel) channel->setVolume(value);
 }
 
 -(void)addEffectOfType:(EffectType)et;
 {
-    FMOD::DSP * effect = [self getDSPWithEffectType:et];
-    if (effect) effect->remove();
+    if (channel)
+    {
+        FMOD::DSP * effect = [self getDSPWithEffectType:et];
+        if (effect) effect->remove();
     
-    soundEngine.system->createDSPByType([self getDSPTypeWithEffectType:et], &effect);
-    channel->addDSP(effect, 0);
+        soundEngine.system->createDSPByType([self getDSPTypeWithEffectType:et], &effect);
+        channel->addDSP(effect, 0);
+        
+        [self setDSPWithEffectType:et withEffect:effect];
+    }
 }
 
 -(void)removeEffectOfType:(EffectType)et
 {
     FMOD::DSP * effect = [self getDSPWithEffectType:et];
-    if (effect) effect->remove();
+    if (effect) effect->remove(); effect = NULL;
 }
 
 -(void)setEffectValueForType:(EffectType)et forParameter:(EffectParameter)ep withValue:(float)value

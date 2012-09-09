@@ -22,6 +22,7 @@
 		6569917715F97E0700A4F67A /* swish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6569917615F97E0700A4F67A /* swish.wav */; };
 		6569917915F97ECB00A4F67A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569917815F97ECB00A4F67A /* CoreAudio.framework */; };
 		6569917B15F97EDA00A4F67A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6569917A15F97EDA00A4F67A /* AudioToolbox.framework */; };
+		658A2BAA15FD3C5900579828 /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 658A2BA915FD3C5900579828 /* drumloop.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		6569917615F97E0700A4F67A /* swish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = swish.wav; sourceTree = "<group>"; };
 		6569917815F97ECB00A4F67A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		6569917A15F97EDA00A4F67A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		658A2BA915FD3C5900579828 /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drumloop.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		6569917515F97DEE00A4F67A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				658A2BA915FD3C5900579828 /* drumloop.wav */,
 				6569917615F97E0700A4F67A /* swish.wav */,
 			);
 			name = Resources;
@@ -199,6 +202,7 @@
 				6569915C15F9728D00A4F67A /* InfoPlist.strings in Resources */,
 				6569917215F9791A00A4F67A /* RESOViewController.xib in Resources */,
 				6569917715F97E0700A4F67A /* swish.wav in Resources */,
+				658A2BAA15FD3C5900579828 /* drumloop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
