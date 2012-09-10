@@ -104,12 +104,13 @@ typedef enum {
 
 typedef enum {
     Binaural,
-    WhiteNoise
+    WhiteNoise,
+    Unknown
 } ToneType;
 
 typedef enum {
     BinauralGap,
-    Octave
+    Frequency
 } ToneProperty;
 
 typedef enum {

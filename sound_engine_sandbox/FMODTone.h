@@ -21,6 +21,7 @@
 
 -(void)setPaused:(bool)state;
 -(void)setVolume:(float)value;
+
 -(void)setPropertyOfType:(ToneProperty)tp withValue:(float)value;
 
 @end
