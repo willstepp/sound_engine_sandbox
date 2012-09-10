@@ -11,6 +11,7 @@
 #import "RESOViewController.h"
 #import "FMODSoundEngine.h"
 #import "ISound.h"
+#import "ITone.h"
 
 #define __PACKED __attribute__((packed))    /* gcc packed */
 
@@ -67,7 +68,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     player = [FMODSoundEngine getSingletonOfType:EngineType::Player];
-    sound = [player getSoundForId:Module::One];
+    //sound = [player getSoundForId:Module::One];
+    tone = [player getToneForId:Module::One];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -87,13 +89,15 @@
     static bool loaded = false;
     if (!loaded)
     {
-        [sound load:[NSString stringWithFormat:@"%@/drumloop.wav", [[NSBundle mainBundle] resourcePath]]];
+        //[sound load:[NSString stringWithFormat:@"%@/drumloop.wav", [[NSBundle mainBundle] resourcePath]]];
+        [tone load:ToneType::WhiteNoise];
         [self.loadButton setTitle:@"Unload" forState:UIControlStateNormal];
         loaded = true;
     }
     else
     {
-        [sound unload];
+        //[sound unload];
+        [tone unload];
         [self.loadButton setTitle:@"Load" forState:UIControlStateNormal];
         loaded = false;
     }
@@ -104,14 +108,17 @@
     static bool playing = false;
     if (!playing)
     {
-        [sound play];
+        //[sound play];
+        //[sound setVolume:[volumeSlider value]];
+        [tone setVolume:[volumeSlider value]];
+        [tone play];
         [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
-        [sound setVolume:[volumeSlider value]];
         playing = true;
     }
     else
     {
-        [sound stop];
+        //[sound stop];
+        [tone stop];
         [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
         playing = false;
     }
@@ -122,14 +129,17 @@
     static bool paused = false;
     if (!paused)
     {
-        [sound setPaused:true];
+        //[sound setPaused:true];
+        [tone setPaused:true];
         [self.pauseButton setTitle:@"Unpause" forState:UIControlStateNormal];
         paused = true;
     }
     else
     {
-        [sound setPaused:false];
-        [sound setVolume:[volumeSlider value]];
+        //[sound setPaused:false];
+        //[sound setVolume:[volumeSlider value]];
+        [tone setVolume:[volumeSlider value]];
+        [tone setPaused:false];
         [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
         paused = false;
     }
@@ -155,13 +165,14 @@
 
 - (IBAction)changeReverbLevel:(id)sender
 {
-    [sound setEffectValueForType:EffectType::Reverb forParameter:EffectParameter::Reverb_Room withValue:[reverbSlider value]];
+    //[sound setEffectValueForType:EffectType::Reverb forParameter:EffectParameter::Reverb_Room withValue:[reverbSlider value]];
 }
 
 - (IBAction)changeSoundVolume:(id)sender
 {
     float normalized = [volumeSlider value] / 100.0f;
-    [sound setVolume:normalized];
+    //[sound setVolume:normalized];
+    [tone setVolume:normalized];
 }
 
 @end
