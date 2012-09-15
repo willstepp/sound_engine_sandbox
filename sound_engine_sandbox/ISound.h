@@ -13,14 +13,24 @@
 
 -(id)initWithSoundEngine:(id<ISoundEngine>)ise;
 
--(void)load:(NSString*)url;
+-(void)load:(NSString*)newUrl;
 -(void)unload;
+
+-(NSString*)url;
+-(bool)loaded;
 
 -(void)play;
 -(void)stop;
 
+-(bool)playing;
+
+-(bool)paused;
 -(void)setPaused:(bool)state;
+
+-(float)volume;
 -(void)setVolume:(float)value;
+
+-(NSMutableDictionary*)effectMappings;
 
 -(void)addEffectOfType:(EffectType)et;
 -(void)setEffectValueForType:(EffectType)et forParameter:(EffectParameter)ep withValue:(float)value;

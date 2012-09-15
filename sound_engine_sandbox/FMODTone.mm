@@ -22,6 +22,9 @@
     ToneType currentToneType;
     float currentFrequency;
     int currentBinauralGap;
+    
+    bool loaded;
+    bool playing;
 }
 - (void)ensureReleased;
 @end
@@ -51,6 +54,8 @@
     if (secondaryTone) { secondaryTone->release(); secondaryTone = NULL; }
     if (primaryChannel) primaryChannel = NULL;
     if (secondaryChannel) secondaryChannel = NULL;
+    loaded = false;
+    playing = false;
 }
 
 #pragma mark
@@ -63,6 +68,7 @@
         soundEngine = ise;
         primaryChannel = secondaryChannel = NULL;
         primaryTone = secondaryTone  = NULL;
+        loaded = false; playing = false;
     }
     return self;
 }
@@ -81,11 +87,22 @@
         soundEngine.system->createDSPByType(FMOD_DSP_TYPE_OSCILLATOR, &primaryTone);
     }
     currentToneType = tt;
+    loaded = true;
 }
 
 -(void)unload
 {
     [self ensureReleased];
+}
+
+-(bool)loaded
+{
+    return loaded;
+}
+
+-(ToneType)toneType
+{
+    return currentToneType;
 }
 
 -(void)play
@@ -122,18 +139,32 @@
         
         primaryChannel->setPaused(false);
     }
+    playing = true;
 }
 
 -(void)stop
 {
     if (primaryChannel) primaryChannel->stop();
     if (secondaryChannel) secondaryChannel->stop();
+    playing = false;
+}
+
+-(bool)playing
+{
+    return playing;
 }
 
 -(void)setPaused:(bool)state
 {
     if (primaryChannel) primaryChannel->setPaused(state);
     if (secondaryChannel) secondaryChannel->setPaused(state);
+}
+
+-(bool)paused
+{
+    bool paused = false;
+    if (primaryChannel) primaryChannel->getPaused(&paused);
+    return paused;
 }
 
 -(void)setVolume:(float)value
@@ -143,6 +174,13 @@
     
 	if (primaryChannel) primaryChannel->setVolume(value);
 	if (secondaryChannel) secondaryChannel->setVolume(value);
+}
+
+-(float)volume
+{
+    float volume = 0.0f;
+    if (primaryChannel) primaryChannel->getVolume(&volume);
+    return volume;
 }
 
 -(void)setPropertyOfType:(ToneProperty)tp withValue:(float)value
@@ -159,6 +197,14 @@
         if (primaryTone) primaryTone->setParameter(FMOD_DSP_OSCILLATOR_RATE, currentFrequency);
         if (secondaryTone) secondaryTone->setParameter(FMOD_DSP_OSCILLATOR_RATE, currentFrequency + currentBinauralGap);
     }
+}
+
+-(float)getPropertyOfType:(ToneProperty)tp
+{
+    if (tp == ToneProperty::BinauralGap) return currentBinauralGap;
+    if (tp == ToneProperty::Frequency) return currentFrequency;
+    
+    return 0.0f;
 }
 
 @end

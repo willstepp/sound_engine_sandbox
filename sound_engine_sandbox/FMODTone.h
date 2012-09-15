@@ -16,12 +16,20 @@
 -(void)load:(ToneType)tt;
 -(void)unload;
 
+-(ToneType)toneType;
+-(bool)loaded;
+
 -(void)play;
 -(void)stop;
 
+-(bool)playing;
+
+-(bool)paused;
 -(void)setPaused:(bool)state;
+
+-(float)volume;
 -(void)setVolume:(float)value;
 
 -(void)setPropertyOfType:(ToneProperty)tp withValue:(float)value;
-
+-(float)getPropertyOfType:(ToneProperty)tp;
 @end

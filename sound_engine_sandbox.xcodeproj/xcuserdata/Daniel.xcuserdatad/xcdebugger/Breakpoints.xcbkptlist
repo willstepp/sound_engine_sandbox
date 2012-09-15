@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/FMODSoundEngine.mm"
-         timestampString = "368852059.199615"
+         timestampString = "369182680.105444"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "126"
-         endingLineNumber = "126">
+         startingLineNumber = "136"
+         endingLineNumber = "136">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -102,20 +102,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "62"
          endingLineNumber = "62"
-         landmarkName = "-initWithEngineType:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "sound_engine_sandbox/FMODSoundEngine.mm"
-         timestampString = "368832295.577505"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "41"
-         endingLineNumber = "41"
-         landmarkName = "+getSingletonOfType:"
+         landmarkName = "-initForSingleton"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -149,11 +136,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOAppDelegate.mm"
-         timestampString = "368852059.199615"
+         timestampString = "369182680.105444"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
+         startingLineNumber = "57"
+         endingLineNumber = "57"
          landmarkName = "-applicationWillTerminate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -162,11 +149,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOAppDelegate.mm"
-         timestampString = "368852059.199615"
+         timestampString = "369182680.105444"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "58"
-         endingLineNumber = "58"
+         startingLineNumber = "56"
+         endingLineNumber = "56"
          landmarkName = "@implementation RESOAppDelegate"
          landmarkType = "3">
       </FileBreakpoint>
@@ -258,7 +245,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "95"
          endingLineNumber = "95"
-         landmarkName = "-shutdown"
+         landmarkName = "-deinstance"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -284,7 +271,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "92"
          endingLineNumber = "92"
-         landmarkName = "-shutdown"
+         landmarkName = "-deinstance"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -350,19 +337,6 @@
          startingLineNumber = "129"
          endingLineNumber = "129"
          landmarkName = "-pauseUnpauseSound:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "sound_engine_sandbox/FMODSound.mm"
-         timestampString = "368920646.98171"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "250"
-         endingLineNumber = "250"
-         landmarkName = "-addEffectOfType:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -466,7 +440,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "91"
          endingLineNumber = "91"
-         landmarkName = "-shutdown"
+         landmarkName = "-deinstance"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

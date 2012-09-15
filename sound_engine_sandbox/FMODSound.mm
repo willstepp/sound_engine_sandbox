@@ -21,12 +21,24 @@
     FMOD::DSP * flange;
     
     FMODSoundEngine * soundEngine;
+    
+    bool loaded;
+    bool playing;
+    NSString * url;
+    
+    NSMutableDictionary * effectMappings;
 }
 -(void)ensureSoundReleased;
 -(FMOD::DSP*)getDSPWithEffectType:(EffectType)et;
 -(FMOD_DSP_TYPE)getDSPTypeWithEffectType:(EffectType)et;
 -(void)setDSPWithEffectType:(EffectType)et withEffect:(FMOD::DSP*)effect;
 -(int)getDSPParameterWithEffectParameter:(EffectParameter)ep;
+-(EffectParameter)getEffectParameterFromDSPParameter:(int)p withType:(EffectType)et;
+-(void)loadEffectMappings;
+-(void)unloadEffectMappings;
+-(void)addEffectMappingsForType:(EffectType)et;
+-(void)removeEffectMappingsForType:(EffectType)et;
+-(void)updateEffectMappingsForType:(EffectType)et forParameter:(EffectParameter)ep withValue:(float)value;
 @end
 
 @implementation FMODSound
@@ -55,6 +67,10 @@
         channel = NULL;
         sound->release();
         sound = NULL;
+        loaded = false;
+        playing = false;
+        url = @"";
+        [self unloadEffectMappings];
     }
 }
 
@@ -190,6 +206,111 @@
     }
 }
 
+-(EffectParameter)getEffectParameterFromDSPParameter:(int)p withType:(EffectType)et
+{
+    switch (et)
+    {
+        case EffectType::Reverb:
+        {
+            switch (p)
+            {
+                case FMOD_DSP_SFXREVERB_DRYLEVEL:
+                    return EffectParameter::Reverb_DryLevel;
+                case FMOD_DSP_SFXREVERB_ROOM:
+                    return EffectParameter::Reverb_Room;
+                case FMOD_DSP_SFXREVERB_ROOMHF:
+                    return EffectParameter::Reverb_RoomHF;
+                case FMOD_DSP_SFXREVERB_DECAYTIME:
+                    return EffectParameter::Reverb_DecayTime;
+                case FMOD_DSP_SFXREVERB_DECAYHFRATIO:
+                    return EffectParameter::Reverb_DecayHFRatio;
+                case FMOD_DSP_SFXREVERB_REFLECTIONSLEVEL:
+                    return EffectParameter::Reverb_ReflectionsLevel;
+                case FMOD_DSP_SFXREVERB_REFLECTIONSDELAY:
+                    return EffectParameter::Reverb_ReflectionsDelay;
+                case FMOD_DSP_SFXREVERB_REVERBLEVEL:
+                    return EffectParameter::Reverb_ReverbLevel;
+                case FMOD_DSP_SFXREVERB_REVERBDELAY:
+                    return EffectParameter::Reverb_ReverbDelay;
+                case FMOD_DSP_SFXREVERB_DIFFUSION:
+                    return EffectParameter::Reverb_Diffusion;
+                case FMOD_DSP_SFXREVERB_DENSITY:
+                    return EffectParameter::Reverb_Density;
+                case FMOD_DSP_SFXREVERB_HFREFERENCE:
+                    return EffectParameter::Reverb_HFReference;
+                case FMOD_DSP_SFXREVERB_ROOMLF:
+                    return EffectParameter::Reverb_RoomLF;
+                case FMOD_DSP_SFXREVERB_LFREFERENCE:
+                    return EffectParameter::Reverb_LFReference;
+                default:
+                    return EffectParameter::EffectParameterCount;
+            }
+        }
+        case EffectType::Pitch:
+        {
+            switch (p)
+            {
+                case FMOD_DSP_PITCHSHIFT_PITCH:
+                    return EffectParameter::Pitch_Value;
+                case FMOD_DSP_PITCHSHIFT_FFTSIZE:
+                    return EffectParameter::Pitch_FFTSize;
+                case FMOD_DSP_PITCHSHIFT_OVERLAP:
+                    return EffectParameter::Pitch_Overlap;
+                case FMOD_DSP_PITCHSHIFT_MAXCHANNELS:
+                    return EffectParameter::Pitch_MaxChannels;
+                default:
+                    return EffectParameter::EffectParameterCount;
+            }
+        }
+        case EffectType::Echo:
+        {
+            switch (p)
+            {
+                case FMOD_DSP_ECHO_DELAY:
+                    return EffectParameter::Echo_Delay;
+                case FMOD_DSP_ECHO_DECAYRATIO:
+                    return EffectParameter::Echo_DecayRatio;
+                case FMOD_DSP_ECHO_MAXCHANNELS:
+                    return EffectParameter::Echo_MaxChannels;
+                case FMOD_DSP_ECHO_DRYMIX:
+                    return EffectParameter::Echo_DryMix;
+                case FMOD_DSP_ECHO_WETMIX:
+                    return EffectParameter::Echo_WetMix;
+                default:
+                    return EffectParameter::EffectParameterCount;
+            }
+        }
+        case EffectType::Distortion:
+        {
+            switch (p)
+            {
+                case FMOD_DSP_DISTORTION_LEVEL:
+                    return EffectParameter::Distortion_Level;
+                default:
+                    return EffectParameter::EffectParameterCount;
+            }
+        }
+        case EffectType::Flange:
+        {
+            switch (p)
+            {
+                case FMOD_DSP_FLANGE_DRYMIX:
+                    return EffectParameter::Flange_DryMix;
+                case FMOD_DSP_FLANGE_WETMIX:
+                    return EffectParameter::Flange_WetMix;
+                case FMOD_DSP_FLANGE_DEPTH:
+                    return EffectParameter::Flange_Depth;
+                case FMOD_DSP_FLANGE_RATE:
+                    return EffectParameter::Flange_Rate;
+                default:
+                    return EffectParameter::EffectParameterCount;
+            }
+        }
+        default:
+            return EffectParameter::EffectParameterCount;
+    }
+}
+
 #pragma mark
 #pragma ISound methods
 
@@ -199,24 +320,42 @@
     {
         soundEngine = ise;
         reverb = pitch = distortion = echo = flange = NULL;
+        loaded = false;
+        playing = false;
+        url = @"";
+        effectMappings = nil;
     }
     return self;
 }
 
--(void)load:(NSString*)url
+-(void)load:(NSString*)newUrl
 {
     [self ensureSoundReleased];
     
     FMOD_RESULT result = FMOD_OK;
     char buffer[200] = {0};
 
-    [url getCString:buffer maxLength:200 encoding:NSASCIIStringEncoding];
+    [newUrl getCString:buffer maxLength:200 encoding:NSASCIIStringEncoding];
     result = soundEngine.system->createStream(buffer, FMOD_SOFTWARE | FMOD_LOOP_NORMAL, NULL, &sound);
+    
+    url = newUrl;
+    loaded = true;
+    [self loadEffectMappings];
 }
 
 -(void)unload
 {
     [self ensureSoundReleased];
+}
+
+-(NSString*)url
+{
+    return url;
+}
+
+-(bool)loaded
+{
+    return loaded;
 }
 
 -(void)play
@@ -225,12 +364,19 @@
     {
         channel = NULL;
         soundEngine.system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+        playing = true;
     }
 }
 
 -(void)stop
 {
     if (channel) channel->stop();
+    playing = false;
+}
+
+-(bool)playing
+{
+    return playing;
 }
 
 -(void)setPaused:(bool)state
@@ -238,22 +384,37 @@
     if (channel) channel->setPaused(state);
 }
 
+-(bool)paused
+{
+    bool paused = false;
+    if (channel) channel->getPaused(&paused);
+    return paused;
+}
+
 -(void)setVolume:(float)value
 {
     if (channel) channel->setVolume(value);
+}
+
+-(float)volume
+{
+    float volume = 0.0f;
+    if (channel) channel->getVolume(&volume);
+    return volume;
 }
 
 -(void)addEffectOfType:(EffectType)et;
 {
     if (channel)
     {
-        FMOD::DSP * effect = [self getDSPWithEffectType:et];
-        if (effect) effect->remove();
-    
+        [self removeEffectOfType:et];
+        
+        FMOD::DSP * effect = NULL;
         soundEngine.system->createDSPByType([self getDSPTypeWithEffectType:et], &effect);
         channel->addDSP(effect, 0);
         
         [self setDSPWithEffectType:et withEffect:effect];
+        [self addEffectMappingsForType:et];
     }
 }
 
@@ -261,13 +422,74 @@
 {
     FMOD::DSP * effect = [self getDSPWithEffectType:et];
     if (effect) effect->remove(); effect = NULL;
+    [self removeEffectMappingsForType:et];
 }
 
 -(void)setEffectValueForType:(EffectType)et forParameter:(EffectParameter)ep withValue:(float)value
 {
     FMOD::DSP * effect = [self getDSPWithEffectType:et];
     if (effect)
+    {
         effect->setParameter([self getDSPParameterWithEffectParameter:ep], value);
+        [self updateEffectMappingsForType:et forParameter:ep withValue:value];
+    }
+}
+
+-(NSMutableDictionary*)effectMappings
+{
+    return effectMappings;
+}
+
+-(void)loadEffectMappings
+{
+    if (sound)
+    {
+        effectMappings = [[NSMutableDictionary alloc] initWithCapacity:EffectType::EffectTypeCount];
+    }
+}
+
+-(void)addEffectMappingsForType:(EffectType)et
+{
+    [self removeEffectMappingsForType:et];
+    
+    FMOD::DSP * effect = [self getDSPWithEffectType:et];
+    int numParams = 0;
+    if (effect) effect->getNumParameters(&numParams);
+    NSMutableDictionary * mappings = [[NSMutableDictionary alloc] initWithCapacity:numParams];
+    for (int i = 0; i < numParams; i++)
+    {
+        float param = 0.0f;
+        effect->getParameter(i, &param, NULL, 0);
+        EffectParameter ep = [self getEffectParameterFromDSPParameter:param withType:et];
+        [mappings setObject:[NSNumber numberWithFloat:param] forKey:[NSNumber numberWithInt:ep]];
+    }
+    if ([mappings count] > 0)
+        [effectMappings setObject:mappings forKey:[NSNumber numberWithInt:et]];
+    else
+        mappings = nil;
+}
+
+-(void)updateEffectMappingsForType:(EffectType)et forParameter:(EffectParameter)ep withValue:(float)value
+{
+    NSMutableDictionary * mappings = [effectMappings objectForKey:[NSNumber numberWithInt:et]];
+    if (mappings) [mappings setObject:[NSNumber numberWithFloat:value] forKey:[NSNumber numberWithInt:ep]];
+}
+
+-(void)removeEffectMappingsForType:(EffectType)et
+{
+    NSMutableDictionary * mappings = [effectMappings objectForKey:[NSNumber numberWithInt:et]];
+    if (mappings) mappings = nil;
+}
+
+-(void)unloadEffectMappings
+{
+    NSArray * effects = [effectMappings allKeys];
+    for (id e in effects)
+    {
+        NSMutableDictionary * params = [effectMappings objectForKey:e];
+        if (params) params = nil;
+    }
+    effectMappings = nil;
 }
 
 @end

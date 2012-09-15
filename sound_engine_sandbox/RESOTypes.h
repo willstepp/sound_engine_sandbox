@@ -7,16 +7,12 @@
 //
 
 typedef enum {
-    Player,
-    Recorder
-} EngineType;
-
-typedef enum {
     Reverb,
     Pitch,
     Distortion,
     Echo,
-    Flange
+    Flange,
+    EffectTypeCount
 } EffectType;
 
 typedef enum {
@@ -97,7 +93,6 @@ typedef enum {
     
     
     //COUNT
-    
     EffectParameterCount
     
 } EffectParameter;
@@ -114,9 +109,10 @@ typedef enum {
 } ToneProperty;
 
 typedef enum {
-    One = 1,
+    One,
     Two,
     Three,
     Four,
-    Five
+    Five,
+    ModuleCount
 } Module;

@@ -20,14 +20,13 @@
 @implementation FMODSoundEngine
 @synthesize system;
 
-static FMODSoundEngine * player = nil;
-static FMODSoundEngine * recorder = nil;
+static FMODSoundEngine * se = nil;
 
 -(id)init
 {
     //enforce client to initWithEngineType
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                        reason:@"-init is not a valid initializer for the class FMODSoundEngine. Use -initWithEngineType"
+                        reason:@"-init is not a valid initializer for the class FMODSoundEngine. Use -instance"
                         userInfo:nil];
     return nil;
 }
@@ -35,59 +34,30 @@ static FMODSoundEngine * recorder = nil;
 #pragma mark
 #pragma ISoundEngine methods
 
-+(id<ISoundEngine>) getSingletonOfType:(EngineType)et
++(id<ISoundEngine>) instance
 {
-    switch (et)
-    {
-        case EngineType::Player:
-            {
-                if (player == nil)
-                    player = [[FMODSoundEngine alloc] initWithEngineType:et];
-                return player;
-            }
-            break;
-        case EngineType::Recorder:
-            {
-                if (recorder == nil)
-                    recorder = [[FMODSoundEngine alloc] initWithEngineType:et];
-                return recorder;
-            }
-            break;
-        default:
-            break;
-    }
+    if (se == nil)
+        se = [[FMODSoundEngine alloc] initForSingleton];
+    return se;
 }
 
--(id)initWithEngineType:(EngineType)et
+-(id)initForSingleton
 {
     if (self = [super init])
     {
-        switch (et)
-        {
-            case EngineType::Player:
-                {   
-                    FMOD_RESULT result = FMOD_OK;
+ 
+        FMOD_RESULT result = FMOD_OK;
                     result = FMOD::System_Create(&system);
                     result = system->init(32,
                                           FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE,
                                           NULL);
-                }
-                break;
-            case EngineType::Recorder:
-                {
-                
-                }
-                break;
-            default:
-                break;
-        }
         sounds = [[NSMutableDictionary alloc] init];
         tones = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
--(void)shutdown
+-(void)deinstance
 {    
     if (sounds) sounds = nil;
     if (tones) tones = nil;
@@ -119,6 +89,16 @@ static FMODSoundEngine * recorder = nil;
         [tones setObject:t forKey:[NSNumber numberWithInt:identifier]];
     }
     return t;
+}
+
+-(void)startRecording:(NSString*)fileName
+{
+    
+}
+
+-(void)stopRecording
+{
+    
 }
 
 @end
