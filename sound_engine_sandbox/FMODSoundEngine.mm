@@ -14,13 +14,16 @@
 {
     NSMutableDictionary * sounds;
     NSMutableDictionary * tones;
+    
+    EngineType type;
 }
 @end
 
 @implementation FMODSoundEngine
 @synthesize system;
 
-static FMODSoundEngine * se = nil;
+static FMODSoundEngine * player = nil;
+static FMODSoundEngine * recorder = nil;
 
 -(id)init
 {
@@ -34,23 +37,41 @@ static FMODSoundEngine * se = nil;
 #pragma mark
 #pragma ISoundEngine methods
 
-+(id<ISoundEngine>) instance
++(id<ISoundEngine>) instance:(EngineType)et
 {
-    if (se == nil)
-        se = [[FMODSoundEngine alloc] initForSingleton];
-    return se;
+    if (et == EngineType::Player)
+    {
+        if (player == nil)
+            player = [[FMODSoundEngine alloc] initWithEngineType:et];
+        return player;
+    }
+    if (et == EngineType::Recorder)
+    {
+        if (recorder == nil)
+            recorder = [[FMODSoundEngine alloc] initWithEngineType:et];
+        return recorder;
+    }
+    return nil;
 }
 
--(id)initForSingleton
+-(id)initWithEngineType:(EngineType)et
 {
+    type = et;
+    
     if (self = [super init])
     {
- 
-        FMOD_RESULT result = FMOD_OK;
-                    result = FMOD::System_Create(&system);
-                    result = system->init(32,
-                                          FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE,
-                                          NULL);
+        if (et == EngineType::Player)
+        {
+            FMOD_RESULT result = FMOD_OK;
+            result = FMOD::System_Create(&system);
+            result = system->init(32,
+                                  FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE,
+                                  NULL);
+        }
+        if (et == EngineType::Recorder)
+        {
+            
+        }
         sounds = [[NSMutableDictionary alloc] init];
         tones = [[NSMutableDictionary alloc] init];
     }
@@ -93,12 +114,26 @@ static FMODSoundEngine * se = nil;
 
 -(void)startRecording:(NSString*)fileName
 {
-    
+    if (type == EngineType::Recorder)
+    {
+        [self deinstance];
+        FMOD_RESULT result = FMOD_OK;
+        result = FMOD::System_Create(&system);
+        result = system->setOutput(FMOD_OUTPUTTYPE_WAVWRITER);
+        
+        char fn[200] = {0};
+        [fileName getCString:fn maxLength:200 encoding:NSASCIIStringEncoding];
+        system->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, fn);
+        //iterate through all sounds and tones of player instance, grabbing the necessary sound data and instantiating the equivalent sound tone
+    }
 }
 
 -(void)stopRecording
 {
-    
+    if (type == EngineType::Recorder)
+    {
+        [self deinstance];
+    }
 }
 
 @end

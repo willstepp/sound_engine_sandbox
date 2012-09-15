@@ -102,7 +102,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "62"
          endingLineNumber = "62"
-         landmarkName = "-initForSingleton"
+         landmarkName = "-deinstance"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -165,23 +165,8 @@
          timestampString = "368852059.199615"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "104"
-         endingLineNumber = "104"
-         landmarkName = "-getSoundForId:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "sound_engine_sandbox/FMODSoundEngine.mm"
-         timestampString = "368852059.199615"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
          startingLineNumber = "115"
-         endingLineNumber = "115"
-         landmarkName = "-getToneForId:"
-         landmarkType = "5">
+         endingLineNumber = "115">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -239,19 +224,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "sound_engine_sandbox/FMODSoundEngine.mm"
-         timestampString = "368852059.199615"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
-         landmarkName = "-deinstance"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/FMODSound.mm"
          timestampString = "368917348.636667"
          startingColumnNumber = "9223372036854775807"
@@ -271,7 +243,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "92"
          endingLineNumber = "92"
-         landmarkName = "-deinstance"
+         landmarkName = "-getToneForId:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -440,7 +412,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "91"
          endingLineNumber = "91"
-         landmarkName = "-deinstance"
+         landmarkName = "-getToneForId:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

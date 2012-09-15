@@ -7,6 +7,11 @@
 //
 
 typedef enum {
+    Player,
+    Recorder
+} EngineType;
+
+typedef enum {
     Reverb,
     Pitch,
     Distortion,

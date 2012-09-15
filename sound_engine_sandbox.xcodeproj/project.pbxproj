@@ -36,6 +36,7 @@
 		65438A7A15FAD70900BC67B4 /* FMODSound.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FMODSound.mm; sourceTree = "<group>"; };
 		65438A7C15FAD72100BC67B4 /* FMODTone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMODTone.h; sourceTree = "<group>"; };
 		65438A7D15FAD72100BC67B4 /* FMODTone.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FMODTone.mm; sourceTree = "<group>"; };
+		6568C42D1605257900E1E40D /* IRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRecorder.h; sourceTree = "<group>"; };
 		6569914D15F9728D00A4F67A /* sound_engine_sandbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sound_engine_sandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6569915115F9728D00A4F67A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6569915315F9728D00A4F67A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +124,7 @@
 				65438A7A15FAD70900BC67B4 /* FMODSound.mm */,
 				65438A7C15FAD72100BC67B4 /* FMODTone.h */,
 				65438A7D15FAD72100BC67B4 /* FMODTone.mm */,
+				6568C42D1605257900E1E40D /* IRecorder.h */,
 			);
 			path = sound_engine_sandbox;
 			sourceTree = "<group>";

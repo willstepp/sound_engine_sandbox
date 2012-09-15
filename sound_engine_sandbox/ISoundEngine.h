@@ -15,7 +15,7 @@
 
 @protocol ISoundEngine <NSObject>
 
-+(id<ISoundEngine>)instance;
++(id<ISoundEngine>)instance:(EngineType)et;
 -(void)deinstance;
 
 -(id<ISound>)getSoundForId:(int)identifier;

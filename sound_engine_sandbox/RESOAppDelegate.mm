@@ -14,6 +14,7 @@
 @interface RESOAppDelegate()
 {
     id<ISoundEngine> player;
+    id<ISoundEngine> recorder;
 }
 @end
 
@@ -27,7 +28,8 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
-    player = [FMODSoundEngine instance];
+    player = [FMODSoundEngine instance:EngineType::Player];
+    recorder = [FMODSoundEngine instance:EngineType::Recorder];
     
     return YES;
 }
@@ -57,6 +59,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [player deinstance]; player = nil;
+    [recorder deinstance]; recorder = nil;
 }
 
 @end

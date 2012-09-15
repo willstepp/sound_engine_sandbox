@@ -16,13 +16,10 @@
 
 @property (readonly) FMOD::System * system;
 
-+(id<ISoundEngine>)instance;
++(id<ISoundEngine>)instance:(EngineType)et;
 -(void)deinstance;
 
 -(id<ISound>)getSoundForId:(int)identifier;
 -(id<ITone>)getToneForId:(int)identifier;
-
--(void)startRecording:(NSString*)fileName;
--(void)stopRecording;
 
 @end
