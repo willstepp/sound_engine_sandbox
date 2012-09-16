@@ -7,7 +7,6 @@
 //
 
 #import "FMODSound.h"
-#import "FMODSoundEngine.h"
 
 @interface FMODSound()
 {
@@ -20,13 +19,15 @@
     FMOD::DSP * echo;
     FMOD::DSP * flange;
     
-    FMODSoundEngine * soundEngine;
+    FMOD::System * system;
     
     bool loaded;
     bool playing;
     NSString * url;
     
     NSMutableDictionary * effectMappings;
+    
+    id<ISound> listener;
 }
 -(void)ensureSoundReleased;
 -(FMOD::DSP*)getDSPWithEffectType:(EffectType)et;
@@ -55,8 +56,9 @@
 -(void)dealloc
 {
     [self ensureSoundReleased];
-    soundEngine = nil;
+    system = NULL;
     reverb = pitch = distortion = echo = flange = NULL;
+    listener = nil;
 }
 
 -(void)ensureSoundReleased
@@ -318,12 +320,29 @@
 {
     if (self = [super init])
     {
-        soundEngine = ise;
+        FMODSoundEngine * se = ise;
+        system = se.system;
         reverb = pitch = distortion = echo = flange = NULL;
         loaded = false;
         playing = false;
         url = @"";
         effectMappings = nil;
+        listener = nil;
+    }
+    return self;
+}
+
+-(id)initWithFMODSystem:(FMOD::System*)s
+{
+    if (self = [super init])
+    {
+        system = s;
+        reverb = pitch = distortion = echo = flange = NULL;
+        loaded = false;
+        playing = false;
+        url = @"";
+        effectMappings = nil;
+        listener = nil;
     }
     return self;
 }
@@ -336,16 +355,19 @@
     char buffer[200] = {0};
 
     [newUrl getCString:buffer maxLength:200 encoding:NSASCIIStringEncoding];
-    result = soundEngine.system->createStream(buffer, FMOD_SOFTWARE | FMOD_LOOP_NORMAL, NULL, &sound);
+    result = system->createStream(buffer, FMOD_SOFTWARE | FMOD_LOOP_NORMAL, NULL, &sound);
     
     url = newUrl;
     loaded = true;
     [self loadEffectMappings];
+    
+    if (listener) [listener load:newUrl];
 }
 
 -(void)unload
 {
     [self ensureSoundReleased];
+    if (listener) [listener unload];
 }
 
 -(NSString*)url
@@ -363,15 +385,18 @@
     if (sound)
     {
         channel = NULL;
-        soundEngine.system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+        system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
         playing = true;
     }
+    if (listener) [listener play];
 }
 
 -(void)stop
 {
     if (channel) channel->stop();
     playing = false;
+    
+    if (listener) [listener stop];
 }
 
 -(bool)playing
@@ -382,6 +407,8 @@
 -(void)setPaused:(bool)state
 {
     if (channel) channel->setPaused(state);
+    
+    if (listener) [listener setPaused:state];
 }
 
 -(bool)paused
@@ -394,6 +421,8 @@
 -(void)setVolume:(float)value
 {
     if (channel) channel->setVolume(value);
+    
+    if (listener) [listener setVolume:value];
 }
 
 -(float)volume
@@ -410,12 +439,13 @@
         [self removeEffectOfType:et];
         
         FMOD::DSP * effect = NULL;
-        soundEngine.system->createDSPByType([self getDSPTypeWithEffectType:et], &effect);
+        system->createDSPByType([self getDSPTypeWithEffectType:et], &effect);
         channel->addDSP(effect, 0);
         
         [self setDSPWithEffectType:et withEffect:effect];
         [self addEffectMappingsForType:et];
     }
+    if (listener) [listener addEffectOfType:et];
 }
 
 -(void)removeEffectOfType:(EffectType)et
@@ -423,6 +453,8 @@
     FMOD::DSP * effect = [self getDSPWithEffectType:et];
     if (effect) effect->remove(); effect = NULL;
     [self removeEffectMappingsForType:et];
+    
+    if (listener) [listener removeEffectOfType:et];
 }
 
 -(void)setEffectValueForType:(EffectType)et forParameter:(EffectParameter)ep withValue:(float)value
@@ -433,6 +465,8 @@
         effect->setParameter([self getDSPParameterWithEffectParameter:ep], value);
         [self updateEffectMappingsForType:et forParameter:ep withValue:value];
     }
+    
+    if (listener) [listener setEffectValueForType:et forParameter:ep withValue:value];
 }
 
 -(NSMutableDictionary*)effectMappings
@@ -490,6 +524,16 @@
         if (params) params = nil;
     }
     effectMappings = nil;
+}
+
+-(void)addListener:(id<ISound>)l
+{
+    listener = l;
+}
+
+-(void)removeListener
+{
+    listener = nil;
 }
 
 @end

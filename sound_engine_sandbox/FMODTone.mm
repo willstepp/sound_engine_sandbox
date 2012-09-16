@@ -7,11 +7,10 @@
 //
 
 #import "FMODTone.h"
-#import "FMODSoundEngine.h"
 
 @interface FMODTone()
 {
-    FMODSoundEngine * soundEngine;
+    FMOD::System * system;
     
     FMOD::DSP * primaryTone;
     FMOD::DSP * secondaryTone;
@@ -25,6 +24,8 @@
     
     bool loaded;
     bool playing;
+    
+    id<ITone> listener;
 }
 - (void)ensureReleased;
 @end
@@ -43,7 +44,8 @@
 -(void)dealloc
 {
     [self ensureReleased];
-    soundEngine = nil;
+    system = NULL;
+    listener = nil;
 }
 
 -(void)ensureReleased
@@ -65,10 +67,25 @@
 {
     if (self = [super init])
     {
-        soundEngine = ise;
+        FMODSoundEngine * soundEngine = ise;
+        system = soundEngine.system;
         primaryChannel = secondaryChannel = NULL;
         primaryTone = secondaryTone  = NULL;
         loaded = false; playing = false;
+        listener = nil;
+    }
+    return self;
+}
+
+-(id)initWithFMODSystem:(FMOD::System*)s
+{
+    if (self = [super init])
+    {
+        system = s;
+        primaryChannel = secondaryChannel = NULL;
+        primaryTone = secondaryTone  = NULL;
+        loaded = false; playing = false;
+        listener = nil;
     }
     return self;
 }
@@ -79,20 +96,23 @@
     
     if (tt == ToneType::Binaural)
     {
-        soundEngine.system->createDSPByType(FMOD_DSP_TYPE_OSCILLATOR, &primaryTone);
-        soundEngine.system->createDSPByType(FMOD_DSP_TYPE_OSCILLATOR, &secondaryTone);
+        system->createDSPByType(FMOD_DSP_TYPE_OSCILLATOR, &primaryTone);
+        system->createDSPByType(FMOD_DSP_TYPE_OSCILLATOR, &secondaryTone);
     }
     if (tt == ToneType::WhiteNoise)
     {
-        soundEngine.system->createDSPByType(FMOD_DSP_TYPE_OSCILLATOR, &primaryTone);
+        system->createDSPByType(FMOD_DSP_TYPE_OSCILLATOR, &primaryTone);
     }
     currentToneType = tt;
     loaded = true;
+    
+    if (listener) [listener load:tt];
 }
 
 -(void)unload
 {
     [self ensureReleased];
+    if (listener) [listener unload];
 }
 
 -(bool)loaded
@@ -110,16 +130,16 @@
     if (currentToneType == ToneType::Binaural)
     {
         primaryTone->setParameter(FMOD_DSP_OSCILLATOR_RATE, currentFrequency);
-        soundEngine.system->playDSP(FMOD_CHANNEL_FREE, primaryTone, true, &primaryChannel);
+        system->playDSP(FMOD_CHANNEL_FREE, primaryTone, true, &primaryChannel);
         primaryTone->setParameter(FMOD_DSP_OSCILLATOR_TYPE, 0);
         primaryChannel->setPan(-1.0);
     
         int frequency = 0;
-        soundEngine.system->getSoftwareFormat(&frequency, NULL, NULL, NULL, NULL, NULL);
+        system->getSoftwareFormat(&frequency, NULL, NULL, NULL, NULL, NULL);
         primaryChannel->setFrequency(frequency);
     
         secondaryTone->setParameter(FMOD_DSP_OSCILLATOR_RATE, currentFrequency + currentBinauralGap);
-        soundEngine.system->playDSP(FMOD_CHANNEL_FREE, secondaryTone, true, &secondaryChannel);
+        system->playDSP(FMOD_CHANNEL_FREE, secondaryTone, true, &secondaryChannel);
         secondaryTone->setParameter(FMOD_DSP_OSCILLATOR_TYPE, 0);
         secondaryChannel->setPan(1.0);
         secondaryChannel->setFrequency(frequency);
@@ -130,16 +150,18 @@
     if (currentToneType == ToneType::WhiteNoise)
     {
         primaryTone->setParameter(FMOD_DSP_OSCILLATOR_RATE, 100.0);
-        soundEngine.system->playDSP(FMOD_CHANNEL_FREE, primaryTone, true, &primaryChannel);
+        system->playDSP(FMOD_CHANNEL_FREE, primaryTone, true, &primaryChannel);
         primaryTone->setParameter(FMOD_DSP_OSCILLATOR_TYPE, 5);
         primaryChannel->setPan(0.0);
         int frequency = 0;
-        soundEngine.system->getSoftwareFormat(&frequency, NULL, NULL, NULL, NULL, NULL);
+        system->getSoftwareFormat(&frequency, NULL, NULL, NULL, NULL, NULL);
         primaryChannel->setFrequency(frequency);
         
         primaryChannel->setPaused(false);
     }
     playing = true;
+    
+    if (listener) [listener play];
 }
 
 -(void)stop
@@ -147,6 +169,8 @@
     if (primaryChannel) primaryChannel->stop();
     if (secondaryChannel) secondaryChannel->stop();
     playing = false;
+    
+    if (listener) [listener stop];
 }
 
 -(bool)playing
@@ -158,6 +182,8 @@
 {
     if (primaryChannel) primaryChannel->setPaused(state);
     if (secondaryChannel) secondaryChannel->setPaused(state);
+    
+    if (listener) [listener setPaused:state];
 }
 
 -(bool)paused
@@ -174,6 +200,8 @@
     
 	if (primaryChannel) primaryChannel->setVolume(value);
 	if (secondaryChannel) secondaryChannel->setVolume(value);
+    
+    if (listener) [listener setVolume:value];
 }
 
 -(float)volume
@@ -197,6 +225,8 @@
         if (primaryTone) primaryTone->setParameter(FMOD_DSP_OSCILLATOR_RATE, currentFrequency);
         if (secondaryTone) secondaryTone->setParameter(FMOD_DSP_OSCILLATOR_RATE, currentFrequency + currentBinauralGap);
     }
+    
+    if (listener) [listener setPropertyOfType:tp withValue:value];
 }
 
 -(float)getPropertyOfType:(ToneProperty)tp
@@ -205,6 +235,16 @@
     if (tp == ToneProperty::Frequency) return currentFrequency;
     
     return 0.0f;
+}
+
+-(void)addListener:(id<ITone>)l
+{
+    listener = l;
+}
+
+-(void)removeListener
+{
+    listener = nil;
 }
 
 @end

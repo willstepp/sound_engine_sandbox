@@ -63,7 +63,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "210"
          endingLineNumber = "210"
-         landmarkName = "-load:"
+         landmarkName = "-getEffectParameterFromDSPParameter:withType:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -76,7 +76,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "224"
          endingLineNumber = "224"
-         landmarkName = "-play"
+         landmarkName = "-getEffectParameterFromDSPParameter:withType:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -89,7 +89,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "214"
          endingLineNumber = "214"
-         landmarkName = "-load:"
+         landmarkName = "-getEffectParameterFromDSPParameter:withType:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -128,7 +128,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "198"
          endingLineNumber = "198"
-         landmarkName = "-initWithSoundEngine:"
+         landmarkName = "-getDSPParameterWithEffectParameter:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -177,9 +177,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "43"
-         endingLineNumber = "43"
-         landmarkName = "-dealloc"
-         landmarkType = "5">
+         endingLineNumber = "43">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -191,8 +189,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "45"
          endingLineNumber = "45"
-         landmarkName = "-dealloc"
-         landmarkType = "5">
+         landmarkName = "@implementation FMODSound"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -230,7 +228,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "52"
          endingLineNumber = "52"
-         landmarkName = "-ensureSoundReleased"
+         landmarkName = "-init"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -321,7 +319,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "262"
          endingLineNumber = "262"
-         landmarkName = "-removeEffectOfType:"
+         landmarkName = "-getEffectParameterFromDSPParameter:withType:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -334,7 +332,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "248"
          endingLineNumber = "248"
-         landmarkName = "-addEffectOfType:"
+         landmarkName = "-getEffectParameterFromDSPParameter:withType:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -360,7 +358,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "268"
          endingLineNumber = "268"
-         landmarkName = "-setEffectValueForType:forParameter:withValue:"
+         landmarkName = "-getEffectParameterFromDSPParameter:withType:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -399,8 +397,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "42"
          endingLineNumber = "42"
-         landmarkName = "-dealloc"
-         landmarkType = "5">
+         landmarkName = "@implementation FMODTone"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"

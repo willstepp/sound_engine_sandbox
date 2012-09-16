@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FMODSoundEngine.h"
 #import "ISound.h"
 
 @interface FMODSound : NSObject <ISound>
 
 -(id)initWithSoundEngine:(id<ISoundEngine>)ise;
+-(id)initWithFMODSystem:(FMOD::System*)s;
 
 -(void)load:(NSString*)newUrl;
 -(void)unload;
@@ -35,5 +37,8 @@
 -(void)removeEffectOfType:(EffectType)et;
 
 -(NSMutableDictionary*)effectMappings;
+
+-(void)addListener:(id<ISound>)l;
+-(void)removeListener;
 
 @end

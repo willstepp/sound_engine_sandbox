@@ -15,8 +15,9 @@
 @interface FMODSoundEngine : NSObject <ISoundEngine>
 
 @property (readonly) FMOD::System * system;
+@property (readonly) FMOD::System * recordingSystem;
 
-+(id<ISoundEngine>)instance:(EngineType)et;
++(id<ISoundEngine>)instance;
 -(void)deinstance;
 
 -(id<ISound>)getSoundForId:(int)identifier;

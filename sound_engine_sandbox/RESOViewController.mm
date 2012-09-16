@@ -67,7 +67,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    player = [FMODSoundEngine instance:EngineType::Player];
+    player = [FMODSoundEngine instance];
     //sound = [player getSoundForId:Module::One];
     tone = [player getToneForId:Module::One];
 }

@@ -15,15 +15,16 @@
     NSMutableDictionary * sounds;
     NSMutableDictionary * tones;
     
-    EngineType type;
+    NSMutableDictionary * recordingSounds;
+    NSMutableDictionary * recordingTones;
 }
 @end
 
 @implementation FMODSoundEngine
 @synthesize system;
+@synthesize recordingSystem;
 
 static FMODSoundEngine * player = nil;
-static FMODSoundEngine * recorder = nil;
 
 -(id)init
 {
@@ -37,49 +38,33 @@ static FMODSoundEngine * recorder = nil;
 #pragma mark
 #pragma ISoundEngine methods
 
-+(id<ISoundEngine>) instance:(EngineType)et
++(id<ISoundEngine>) instance
 {
-    if (et == EngineType::Player)
-    {
-        if (player == nil)
-            player = [[FMODSoundEngine alloc] initWithEngineType:et];
-        return player;
-    }
-    if (et == EngineType::Recorder)
-    {
-        if (recorder == nil)
-            recorder = [[FMODSoundEngine alloc] initWithEngineType:et];
-        return recorder;
-    }
-    return nil;
+    if (player == nil)
+        player = [[FMODSoundEngine alloc] initForSingleton];
+    return player;
 }
 
--(id)initWithEngineType:(EngineType)et
+-(id)initForSingleton
 {
-    type = et;
-    
     if (self = [super init])
     {
-        if (et == EngineType::Player)
-        {
-            FMOD_RESULT result = FMOD_OK;
-            result = FMOD::System_Create(&system);
-            result = system->init(32,
+        FMOD_RESULT result = FMOD_OK;
+        result = FMOD::System_Create(&system);
+        result = system->init(32,
                                   FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE,
                                   NULL);
-        }
-        if (et == EngineType::Recorder)
-        {
-            
-        }
         sounds = [[NSMutableDictionary alloc] init];
         tones = [[NSMutableDictionary alloc] init];
+        recordingSystem = nil;
     }
     return self;
 }
 
 -(void)deinstance
-{    
+{
+    [self stopRecording];
+    
     if (sounds) sounds = nil;
     if (tones) tones = nil;
     
@@ -114,25 +99,124 @@ static FMODSoundEngine * recorder = nil;
 
 -(void)startRecording:(NSString*)fileName
 {
-    if (type == EngineType::Recorder)
-    {
-        [self deinstance];
-        FMOD_RESULT result = FMOD_OK;
-        result = FMOD::System_Create(&system);
-        result = system->setOutput(FMOD_OUTPUTTYPE_WAVWRITER);
+    //cleanup any old recordings
+    [self stopRecording];
+    
+    recordingSounds = [[NSMutableDictionary alloc] init];
+    recordingTones = [[NSMutableDictionary alloc] init];
+    
+    //initialize new recording system
+    FMOD_RESULT result = FMOD_OK;
+    result = FMOD::System_Create(&recordingSystem);
+    result = recordingSystem->setOutput(FMOD_OUTPUTTYPE_WAVWRITER);
         
-        char fn[200] = {0};
-        [fileName getCString:fn maxLength:200 encoding:NSASCIIStringEncoding];
-        system->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, fn);
-        //iterate through all sounds and tones of player instance, grabbing the necessary sound data and instantiating the equivalent sound tone
+    char fn[256] = {0};
+    [fileName getCString:fn maxLength:256 encoding:NSASCIIStringEncoding];
+    recordingSystem->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, fn);
+    
+    //load sounds
+    NSArray * soundKeys = [sounds allKeys];
+    for (id sk in soundKeys)
+    {
+        FMODSound * s = [sounds objectForKey:sk];
+        if (s)
+        {
+            FMODSound * rs = [[FMODSound alloc] initWithFMODSystem:recordingSystem];
+            
+            [rs load:[s url]];
+            [rs setVolume:[s volume]];
+            
+            //set effects from mappings
+            NSMutableDictionary * effectMappings = [s effectMappings];
+            NSArray * effectKeys = [effectMappings allKeys];
+            for (id e in effectKeys)
+            {
+                NSNumber * num = e;
+                int effect = [num intValue];
+                [rs addEffectOfType:(EffectType)(effect)];
+                
+                //set effect parameters from mappings
+                NSMutableDictionary * parameterMappings = [effectMappings objectForKey:e];
+                if (parameterMappings)
+                {
+                    NSArray * paramKeys = [parameterMappings allKeys];
+                    for (id pk in paramKeys)
+                    {
+                        NSNumber * param = pk;
+                        int p = [param intValue];
+                        NSNumber * v = [parameterMappings objectForKey:pk];
+                        float value = [v floatValue];
+                        [rs setEffectValueForType:(EffectType)(effect) forParameter:(EffectParameter)(p) withValue:value];
+                    }
+                }
+            }
+            
+            //update playing states
+            if ([s playing]) [rs play];
+            [rs setPaused:[s paused]];
+            
+            //save
+            [recordingSounds setObject:rs forKey:sk];
+            [s addListener:rs];
+        }
     }
+    
+    //load tones
+    NSArray * toneKeys = [tones allKeys];
+    for (id tk in toneKeys)
+    {
+        FMODTone * t = [tones objectForKey:tk];
+        if (t)
+        {
+            FMODTone * rt = [[FMODTone alloc] initWithFMODSystem:recordingSystem];
+            
+            [rt load:[t toneType]];
+            [rt setVolume:[t volume]];
+            
+            //set parameters
+            if ([t toneType] == ToneType::Binaural)
+            {
+                float bg = [t getPropertyOfType:ToneProperty::BinauralGap];
+                [rt setPropertyOfType:ToneProperty::BinauralGap withValue:bg];
+            }
+            float freq = [t getPropertyOfType:ToneProperty::Frequency];
+            [rt setPropertyOfType:ToneProperty::Frequency withValue:freq];
+            
+            //update playing states
+            if ([t playing]) [rt play];
+            [rt setPaused:[t paused]];
+            
+            //save
+            [recordingTones setObject:rt forKey:tk];
+            [t addListener:rt];
+        }
+    }
+
 }
 
 -(void)stopRecording
 {
-    if (type == EngineType::Recorder)
+    //removing listeners
+    NSArray * soundKeys = [sounds allKeys];
+    for (id sk in soundKeys)
     {
-        [self deinstance];
+        FMODSound * s = [sounds objectForKey:sk];
+        if (s) [s removeListener];
+    }
+    NSArray * toneKeys = [tones allKeys];
+    for (id tk in toneKeys)
+    {
+        FMODTone * t = [tones objectForKey:tk];
+        if (t) [t removeListener];
+    }
+    
+    //release resources
+    if (recordingSounds) recordingSounds = nil;
+    if (recordingTones) recordingTones = nil;
+    if (recordingSystem)
+    {
+        recordingSystem->release();
+        recordingSystem = NULL;
     }
 }
 

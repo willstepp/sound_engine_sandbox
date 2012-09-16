@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FMODSoundEngine.h"
 #import "ITone.h"
 
 @interface FMODTone : NSObject <ITone>
 
 -(id)initWithSoundEngine:(id<ISoundEngine>)ise;
+-(id)initWithFMODSystem:(FMOD::System*)s;
 
 -(void)load:(ToneType)tt;
 -(void)unload;
@@ -32,4 +34,7 @@
 
 -(void)setPropertyOfType:(ToneProperty)tp withValue:(float)value;
 -(float)getPropertyOfType:(ToneProperty)tp;
+
+-(void)addListener:(id<ITone>)l;
+-(void)removeListener;
 @end

@@ -28,8 +28,7 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
-    player = [FMODSoundEngine instance:EngineType::Player];
-    recorder = [FMODSoundEngine instance:EngineType::Recorder];
+    player = [FMODSoundEngine instance];
     
     return YES;
 }
@@ -59,7 +58,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [player deinstance]; player = nil;
-    [recorder deinstance]; recorder = nil;
 }
 
 @end
