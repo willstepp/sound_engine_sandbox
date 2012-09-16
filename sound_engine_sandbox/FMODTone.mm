@@ -195,20 +195,24 @@
 
 -(void)setVolume:(float)value
 {
-    //float divisor = currentToneType == ToneType::Binaural ? 8.0f : 20.0f;
-    //float quartered = value / divisor;
+    float divisor = currentToneType == ToneType::Binaural ? 8.0f : 20.0f;
+    float quartered = value / divisor;
     
-	if (primaryChannel) primaryChannel->setVolume(value);
-	if (secondaryChannel) secondaryChannel->setVolume(value);
+	if (primaryChannel) primaryChannel->setVolume(quartered);
+	if (secondaryChannel) secondaryChannel->setVolume(quartered);
     
-    if (listener) [listener setVolume:value];
+    if (listener) [listener setVolume:quartered];
 }
 
 -(float)volume
 {
     float volume = 0.0f;
     if (primaryChannel) primaryChannel->getVolume(&volume);
-    return volume;
+    
+    float multiplier = currentToneType == ToneType::Binaural ? 8.0f : 20.0f;
+    float value = volume * multiplier;
+    
+    return value;
 }
 
 -(void)setPropertyOfType:(ToneProperty)tp withValue:(float)value

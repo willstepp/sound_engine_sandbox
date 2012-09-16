@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton * reverbButton;
 @property (weak, nonatomic) IBOutlet UISlider * reverbSlider;
 @property (weak, nonatomic) IBOutlet UISlider * volumeSlider;
+@property (weak, nonatomic) IBOutlet UIButton * recordButton;
 
 - (IBAction)loadUnloadSound:(id)sender;
 - (IBAction)playStopSound:(id)sender;
@@ -23,5 +24,6 @@
 - (IBAction)enableDisableReverb:(id)sender;
 - (IBAction)changeReverbLevel:(id)sender;
 - (IBAction)changeSoundVolume:(id)sender;
+- (IBAction)startStopRecording:(id)sender;
 
 @end

@@ -40,6 +40,7 @@
 -(void)addEffectMappingsForType:(EffectType)et;
 -(void)removeEffectMappingsForType:(EffectType)et;
 -(void)updateEffectMappingsForType:(EffectType)et forParameter:(EffectParameter)ep withValue:(float)value;
+-(void)loadEffects;
 @end
 
 @implementation FMODSound
@@ -384,9 +385,9 @@
 {
     if (sound)
     {
-        channel = NULL;
         system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
         playing = true;
+        [self loadEffects];
     }
     if (listener) [listener play];
 }
@@ -402,6 +403,36 @@
 -(bool)playing
 {
     return playing;
+}
+
+-(void)loadEffects
+{
+    NSArray * ems = [effectMappings allKeys];
+    for (id em in ems)
+    {
+        //first release the effect
+        NSNumber * effectType = em;
+        EffectType et = (EffectType)[effectType intValue];
+        FMOD::DSP * effect = [self getDSPWithEffectType:(EffectType)et];
+        if (effect) effect->remove(); effect = NULL;
+        
+        //recreate the effect
+        system->createDSPByType([self getDSPTypeWithEffectType:(EffectType)et], &effect);
+        channel->addDSP(effect, 0);
+        [self setDSPWithEffectType:(EffectType)et withEffect:effect];
+        
+        //set the effect parameters
+        NSMutableDictionary * effectParams = [effectMappings objectForKey:em];
+        NSArray * epms = [effectParams allKeys];
+        for (id epm in epms)
+        {
+            NSNumber * effectParam = epm;
+            EffectParameter ep = (EffectParameter)[effectParam intValue];
+            NSNumber * paramValue = [effectParams objectForKey:epm];
+            float value = [paramValue floatValue];
+            effect->setParameter([self getDSPParameterWithEffectParameter:ep], value);
+        }
+    }
 }
 
 -(void)setPaused:(bool)state
@@ -452,6 +483,7 @@
 {
     FMOD::DSP * effect = [self getDSPWithEffectType:et];
     if (effect) effect->remove(); effect = NULL;
+    [self setDSPWithEffectType:et withEffect:effect];
     [self removeEffectMappingsForType:et];
     
     if (listener) [listener removeEffectOfType:et];
@@ -494,7 +526,7 @@
     {
         float param = 0.0f;
         effect->getParameter(i, &param, NULL, 0);
-        EffectParameter ep = [self getEffectParameterFromDSPParameter:param withType:et];
+        EffectParameter ep = [self getEffectParameterFromDSPParameter:i withType:et];
         [mappings setObject:[NSNumber numberWithFloat:param] forKey:[NSNumber numberWithInt:ep]];
     }
     if ([mappings count] > 0)
@@ -512,7 +544,7 @@
 -(void)removeEffectMappingsForType:(EffectType)et
 {
     NSMutableDictionary * mappings = [effectMappings objectForKey:[NSNumber numberWithInt:et]];
-    if (mappings) mappings = nil;
+    if (mappings) { [mappings removeAllObjects]; mappings = nil; }
 }
 
 -(void)unloadEffectMappings
@@ -521,7 +553,7 @@
     for (id e in effects)
     {
         NSMutableDictionary * params = [effectMappings objectForKey:e];
-        if (params) params = nil;
+        if (params) { [params removeAllObjects]; params = nil; }
     }
     effectMappings = nil;
 }

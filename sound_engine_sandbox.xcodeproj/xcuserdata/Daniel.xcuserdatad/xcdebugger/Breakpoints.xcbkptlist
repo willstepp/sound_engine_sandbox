@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "43"
-         endingLineNumber = "43"
+         startingLineNumber = "44"
+         endingLineNumber = "44"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "65"
-         endingLineNumber = "65"
+         startingLineNumber = "66"
+         endingLineNumber = "66"
          landmarkName = "-viewDidUnload"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/FMODSoundEngine.mm"
-         timestampString = "369182680.105444"
+         timestampString = "369514878.541049"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "136"
-         endingLineNumber = "136">
+         startingLineNumber = "138"
+         endingLineNumber = "138"
+         landmarkName = "-startRecording:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -63,7 +65,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "210"
          endingLineNumber = "210"
-         landmarkName = "-getEffectParameterFromDSPParameter:withType:"
+         landmarkName = "-getDSPParameterWithEffectParameter:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -102,7 +104,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "62"
          endingLineNumber = "62"
-         landmarkName = "-deinstance"
+         landmarkName = "-initForSingleton"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -110,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "42"
-         endingLineNumber = "42"
+         startingLineNumber = "43"
+         endingLineNumber = "43"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -166,7 +168,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "115"
-         endingLineNumber = "115">
+         endingLineNumber = "115"
+         landmarkName = "-startRecording:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -177,7 +181,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "43"
-         endingLineNumber = "43">
+         endingLineNumber = "43"
+         landmarkName = "-loadEffects"
+         landmarkType = "4">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -188,20 +194,18 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "45"
-         endingLineNumber = "45"
-         landmarkName = "@implementation FMODSound"
-         landmarkType = "3">
+         endingLineNumber = "45">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "70"
-         endingLineNumber = "70"
+         startingLineNumber = "71"
+         endingLineNumber = "71"
          landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -210,11 +214,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "80"
-         endingLineNumber = "80"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
          landmarkName = "-viewWillDisappear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -249,11 +253,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "108"
-         endingLineNumber = "108"
+         startingLineNumber = "111"
+         endingLineNumber = "111"
          landmarkName = "-playStopSound:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -262,11 +266,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "89"
-         endingLineNumber = "89"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
          landmarkName = "-loadUnloadSound:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -275,11 +279,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931009.480369"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "109"
-         endingLineNumber = "109"
+         startingLineNumber = "112"
+         endingLineNumber = "112"
          landmarkName = "-playStopSound:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -288,11 +292,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931454.738967"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "151"
-         endingLineNumber = "151"
+         startingLineNumber = "158"
+         endingLineNumber = "158"
          landmarkName = "-enableDisableReverb:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -301,11 +305,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931454.738967"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "129"
-         endingLineNumber = "129"
+         startingLineNumber = "135"
+         endingLineNumber = "135"
          landmarkName = "-pauseUnpauseSound:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -340,11 +344,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931454.738967"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "167"
-         endingLineNumber = "167"
+         startingLineNumber = "174"
+         endingLineNumber = "174"
          landmarkName = "-changeReverbLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -366,11 +370,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931454.738967"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "174"
-         endingLineNumber = "174"
+         startingLineNumber = "181"
+         endingLineNumber = "181"
          landmarkName = "-changeSoundVolume:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -379,11 +383,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sound_engine_sandbox/RESOViewController.mm"
-         timestampString = "368931454.738967"
+         timestampString = "369512406.985514"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "168"
-         endingLineNumber = "168"
+         startingLineNumber = "175"
+         endingLineNumber = "175"
          landmarkName = "-changeReverbLevel:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -397,8 +401,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "42"
          endingLineNumber = "42"
-         landmarkName = "@implementation FMODTone"
-         landmarkType = "3">
+         landmarkName = "-init"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -411,6 +415,123 @@
          startingLineNumber = "91"
          endingLineNumber = "91"
          landmarkName = "-getToneForId:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSound.mm"
+         timestampString = "369502682.389315"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "470"
+         endingLineNumber = "470"
+         landmarkName = "-addEffectOfType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSound.mm"
+         timestampString = "369500074.667103"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "362"
+         endingLineNumber = "362"
+         landmarkName = "-load:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSound.mm"
+         timestampString = "369502682.389315"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "461"
+         endingLineNumber = "461"
+         landmarkName = "-volume"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSound.mm"
+         timestampString = "369507581.112055"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "484"
+         endingLineNumber = "484"
+         landmarkName = "-removeEffectOfType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSound.mm"
+         timestampString = "369507889.49327"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "410"
+         endingLineNumber = "410"
+         landmarkName = "-loadEffects"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSound.mm"
+         timestampString = "369509291.745628"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "519"
+         endingLineNumber = "519"
+         landmarkName = "-addEffectMappingsForType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/RESOViewController.mm"
+         timestampString = "369512418.859447"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "187"
+         endingLineNumber = "187"
+         landmarkName = "-startStopRecording:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSound.mm"
+         timestampString = "369513962.277892"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "454"
+         endingLineNumber = "454"
+         landmarkName = "-setVolume:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "sound_engine_sandbox/FMODSoundEngine.mm"
+         timestampString = "369514878.541049"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "132"
+         endingLineNumber = "132"
+         landmarkName = "-startRecording:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

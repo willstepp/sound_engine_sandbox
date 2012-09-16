@@ -124,7 +124,9 @@ static FMODSoundEngine * player = nil;
             FMODSound * rs = [[FMODSound alloc] initWithFMODSystem:recordingSystem];
             
             [rs load:[s url]];
-            [rs setVolume:[s volume]];
+            //playing/stopping will initialize channel, needed for effect mapping
+            [rs play];
+            [rs stop];
             
             //set effects from mappings
             NSMutableDictionary * effectMappings = [s effectMappings];
@@ -154,6 +156,7 @@ static FMODSoundEngine * player = nil;
             //update playing states
             if ([s playing]) [rs play];
             [rs setPaused:[s paused]];
+            [rs setVolume:[s volume]];
             
             //save
             [recordingSounds setObject:rs forKey:sk];
@@ -171,7 +174,8 @@ static FMODSoundEngine * player = nil;
             FMODTone * rt = [[FMODTone alloc] initWithFMODSystem:recordingSystem];
             
             [rt load:[t toneType]];
-            [rt setVolume:[t volume]];
+            [rt play];
+            [rt stop];
             
             //set parameters
             if ([t toneType] == ToneType::Binaural)
@@ -185,6 +189,7 @@ static FMODSoundEngine * player = nil;
             //update playing states
             if ([t playing]) [rt play];
             [rt setPaused:[t paused]];
+            [rt setVolume:[t volume]];
             
             //save
             [recordingTones setObject:rt forKey:tk];
